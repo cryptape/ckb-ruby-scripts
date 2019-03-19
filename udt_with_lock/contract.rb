@@ -61,7 +61,7 @@ if ARGV.length != 4
       # [balance, status]
       # 0: active, 1: locked
       # only active can be tranfered
-      input, status = CKB::CellField.new(CKB::Source::INPUT, i, CKB::CellField::DATA).read(0, 16).unpack("Q<Q<")
+      input, status = CKB::CellField.new(CKB::Source::INPUT, i, CKB::CellField::DATA).read(0, 16).unpack("Q<C")
       if status == 0
         input
       else
@@ -89,7 +89,7 @@ else
   # Exit
   input_sum = tx["inputs"].size.times.map do |i|
     if CKB.load_script_hash(i, CKB::Source::INPUT, CKB::Category::TYPE) == contract_type_hash
-      input, status = CKB::CellField.new(CKB::Source::INPUT, i, CKB::CellField::DATA).read(0, 16).unpack("Q<Q<")
+      input, status = CKB::CellField.new(CKB::Source::INPUT, i, CKB::CellField::DATA).read(0, 16).unpack("Q<C")
       if status == 1
         input
       else
